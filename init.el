@@ -69,24 +69,18 @@
   (setq whitespace-space-mark '("·" . "·"))
   (setq whitespace-tab-mark '("» " . "» ")))
 
+;; This loads evil too
 (use-package evil-leader
   :ensure t
   :init
     (setq-default evil-leader/leader "<SPC>")
+    (setq evil-want-integration t)
     (setq evil-want-keybinding nil)
+    (setq evil-want-C-u-scroll t)
   :config
     (evil-leader-mode 1)
-    (global-evil-leader-mode))
-
-(use-package evil
-  :ensure t
-  :diminish
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  :config
-  (evil-mode))
+    (global-evil-leader-mode)
+    (evil-mode))
 
 (use-package evil-collection
   :ensure t
