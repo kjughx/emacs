@@ -26,8 +26,8 @@
      default))
  '(package-selected-packages
    '(company crm-custom diminish evil-collection evil-leader evil-mc
-	     gruber-darker-theme ido-completing-read+ lsp-mode magit
-	     move-text rust-mode smex)))
+	     flycheck gruber-darker-theme ido-completing-read+
+	     ido-vertical-mode magit move-text rust-mode)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
