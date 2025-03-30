@@ -34,6 +34,7 @@
 
 (use-package ido-completing-read+
   :ensure t
+  :after ido
   :config
   (ido-ubiquitous-mode 1))
 
