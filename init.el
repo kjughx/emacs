@@ -73,6 +73,13 @@
 (diminish 'flymake-mode)
 (diminish 'lsp-lens-mode)
 
+(use-package rust-mode
+  :ensure t
+  :diminish
+  :config
+    (autoload 'rust-mode "rust-mode" nil t)
+    (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode)))
+
 (use-package whitespace
   :ensure t
   :diminish
@@ -154,9 +161,9 @@
    '("01a9797244146bbae39b18ef37e6f2ca5bebded90d9fe3a2f342a9e863aaa4fd"
      default))
  '(package-selected-packages
-   '(company crm-custom evil-collection evil-leader evil-mc
+   '(company crm-custom diminish evil-collection evil-leader evil-mc
 	     gruber-darker-theme ido-completing-read+ lsp-mode magit
-	     move-text smex)))
+	     move-text rust-mode smex)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
