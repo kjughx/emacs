@@ -67,7 +67,9 @@
   :hook ((prog-mode . lsp))
   :commands lsp
   :config
-  (setq lsp-warn-no-matched-clients nil))
+  (setq lsp-warn-no-matched-clients nil)
+  (setq lsp-enable-snippet nil))
+
 (diminish 'flymake-mode)
 (diminish 'lsp-lens-mode)
 
