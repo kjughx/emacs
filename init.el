@@ -22,6 +22,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (require 'use-package)
+(use-package diminish :ensure t)
 
 (use-package gruber-darker-theme
   :ensure t)
@@ -53,6 +54,7 @@
 
 (use-package company
   :ensure t
+  :diminish
   :hook (lsp-mode . company-mode)
   :config
   (setq company-idle-delay 0.2
@@ -61,10 +63,13 @@
 
 (use-package lsp-mode
   :ensure t
+  :diminish
   :hook ((prog-mode . lsp))
   :commands lsp
   :config
   (setq lsp-warn-no-matched-clients nil))
+(diminish 'flymake-mode)
+(diminish 'lsp-lens-mode)
 
 (use-package whitespace
   :ensure t
@@ -97,7 +102,7 @@
 
 (use-package evil-collection
   :ensure t
-  :diminish
+  :diminish evil-collection-unimpaired-mode
   :config
   (evil-collection-init))
 
