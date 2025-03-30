@@ -22,7 +22,7 @@
 (use-package gruber-darker-theme
   :ensure t)
 
-(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 160)
+(set-face-attribute 'default nil :font "Fira Code" :height 160)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
