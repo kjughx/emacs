@@ -1,9 +1,9 @@
-
 (require 'eglot)
 (add-hook 'prog-mode-hook 'eglot-ensure)
 (setq eldoc-echo-area-use-multiline-p t)
 (use-package company
   :ensure t
+  :diminish
   :hook (prog-mode . company-mode))
 (setq eglot-stay-out-of '(flymake))
 (use-package flycheck
