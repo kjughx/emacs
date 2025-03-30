@@ -17,14 +17,14 @@
 (show-paren-mode 1)
 (global-display-line-numbers-mode 1)
 
+(set-face-attribute 'default nil :font "Fira Code" :height 160)
+
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 (require 'use-package)
 
 (use-package gruber-darker-theme
   :ensure t)
-
-(set-face-attribute 'default nil :font "Fira Code" :height 160)
-
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (use-package ido
   :ensure t
