@@ -75,14 +75,16 @@
   :ensure t
   :diminish)
 
+;; All evil-* packages need this
+(defvar evil-want-keybinding nil)
+(defvar evil-want-C-u-scroll t)
+(defvar evil-want-integration t)
+
 ;; This loads evil too
 (use-package evil-leader
   :ensure t
   :init
     (setq-default evil-leader/leader "<SPC>")
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    (setq evil-want-C-u-scroll t)
   :config
     (evil-leader-mode 1)
     (global-evil-leader-mode)
@@ -91,8 +93,6 @@
 (use-package evil-collection
   :ensure t
   :diminish
-  :init
-  :after (evil)
   :config
   (evil-collection-init))
 
@@ -100,7 +100,6 @@
   :ensure t
   :diminish
   :ensure t
-  :after (evil)
   :config
   (global-evil-mc-mode 1))
 
