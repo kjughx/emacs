@@ -38,6 +38,11 @@
   :config
   (ido-ubiquitous-mode 1))
 
+(use-package crm-custom
+  :ensure t
+  :config
+  (crm-custom-mode))
+
 (use-package smex
   :ensure t
   :config
@@ -142,7 +147,7 @@
    '("01a9797244146bbae39b18ef37e6f2ca5bebded90d9fe3a2f342a9e863aaa4fd"
      default))
  '(package-selected-packages
-   '(company crm-custom evil-collection evil-leader evil-mc general
+   '(company crm-custom evil-collection evil-leader evil-mc
 	     gruber-darker-theme ido-completing-read+ lsp-mode magit
 	     move-text smex)))
 
