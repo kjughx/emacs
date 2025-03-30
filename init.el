@@ -6,7 +6,8 @@
 (show-paren-mode 1)
 (global-display-line-numbers-mode 1)
 
-(set-face-attribute 'default nil :font "Fira Code" :height 160)
+(set-fontset-font t nil (font-spec :size 20 :name "FiraCode Nerd Font"))
+(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 160)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
