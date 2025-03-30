@@ -71,6 +71,10 @@
   (setq whitespace-space-mark '("·" . "·"))
   (setq whitespace-tab-mark '("» " . "» ")))
 
+(use-package magit
+  :ensure t
+  :diminish)
+
 ;; This loads evil too
 (use-package evil-leader
   :ensure t
