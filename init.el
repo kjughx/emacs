@@ -14,7 +14,7 @@
  '(package-selected-packages
    '(company crm-custom diminish eshell-syntax-highlighting
 	     evil-collection evil-leader evil-mc flycheck general
-	     gruber-darker-theme ido-completing-read+
+	     git-gutter gruber-darker-theme ido-completing-read+
 	     ido-vertical-mode lsp-mode magit move-text multi-vterm
 	     multiple-cursors org-bullets rainbow-mode rust-mode smex
 	     sudo-edit toc-org)))

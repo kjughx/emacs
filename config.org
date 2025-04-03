@@ -28,7 +28,9 @@
   - [[#vterm][Vterm]]
 - [[#theme][Theme]]
 - [[#whitespace][Whitespace]]
-- [[#magit][Magit]]
+- [[#git][git]]
+  - [[#magit][magit]]
+  - [[#git-gutter][git-gutter]]
 - [[#ido][Ido]]
 - [[#multiple-cursors][multiple-cursors]]
 - [[#code-completion][Code completion]]
@@ -341,7 +343,8 @@ So we can see that damn whitespace
     (setq whitespace-space-regexp "\\(\x20\\)"))
 #+end_src
 
-* Magit
+* git
+** magit
 Duh
 
  #+begin_src emacs-lisp
@@ -349,6 +352,25 @@ Duh
    :ensure t
    :diminish)
    (diminish 'auto-revert-mode)
+#+end_src
+
+** git-gutter
+#+begin_src emacs-lisp
+  (use-package git-gutter
+    :ensure t
+    :diminish
+    :hook ((prog-mode . git-gutter-mode))
+    :init
+      (setq git-gutter:update-interval 0.5)
+    :config
+      (set-face-foreground 'git-gutter:modified "orange")
+      (set-face-foreground 'git-gutter:added "green")
+      (set-face-foreground 'git-gutter:deleted "red"))
+
+  (custom-set-variables
+   '(git-gutter:modified-sign "~")
+   '(git-gutter:added-sign "+")
+   '(git-gutter:deleted-sign "-"))
 #+end_src
 
 * Ido
