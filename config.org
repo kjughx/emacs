@@ -80,7 +80,9 @@ Very important, 'vim .gt. emacs'
 
 * Keybindings
 ** escape=keyboard-escape-quit
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+#+end_src
 
 ** general
 #+begin_src emacs-lisp
