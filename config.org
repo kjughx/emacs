@@ -276,21 +276,23 @@ The code block below enables rainbow-mode in all programming modes (prog-mode) a
 #+begin_src emacs-lisp
   (use-package which-key
     :ensure t
+    :diminish
     :init
-      (which-key-mode 1)
-    :config
-    (setq which-key-side-window-location 'right
+    (setq which-key-side-window-location 'bottom
   	  which-key-sort-order #'which-key-key-order-alpha
   	  which-key-sort-uppercase-first nil
   	  which-key-add-column-padding 1
   	  which-key-max-display-columns nil
-  	  which-key-min-display-lines 6
-  	  which-key-side-window-slot -10
-  	  which-key-side-window-max-height 0.25
+  	  which-key-min-display-lines 10
+  	  which-key-side-window-slot +10
+  	  which-key-side-window-max-height 0.40
   	  which-key-idle-delay 0.2
-  	  which-key-max-description-length 40
+  	  which-key-max-description-length 25
   	  which-key-allow-imprecise-window-fit t
-  	  which-key-separator " → " ))
+  	  which-key-separator " → ")
+    :config
+      (which-key-mode 1))
+
 #+end_src
 
 * Shells
