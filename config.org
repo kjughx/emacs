@@ -336,9 +336,10 @@ So we can see that damn whitespace
 Duh
 
  #+begin_src emacs-lisp
-    (use-package magit
-    :ensure t
-    :diminish)
+   (use-package magit
+   :ensure t
+   :diminish)
+   (diminish 'auto-revert-mode)
 #+end_src
 
 * Ido
