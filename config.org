@@ -97,7 +97,7 @@ Very important, 'vim .gt. emacs'
     (pj/leader-keys
       "b" '(:ignore t :wk "buffer")
       "bb" '(switch-to-buffer :wk "Switch buffer")
-      "bk" '(kill-this-buffer :wk "Kill buffer")
+      "bk" '(kill-current-buffer :wk "Kill buffer")
       "bn" '(next-buffer :wk "Buffer next")
       "bp" '(previous-buffer :wk "Buffer previous")
       "br" '(revert-buffer :wk "Buffer reload"))
