@@ -105,7 +105,8 @@ Very important, 'vim .gt. emacs'
       "br" '(revert-buffer :wk "Buffer reload"))
     
     (pj/leader-keys
-      "cc" '(:ignore t :wk "compile")
+      "c" '(:ignore t :wk "compile")
+      "cc" '(compile :wk "Start compilation")
       "cn" '(next-error :wk "Next compilation error")
       "cp" '(previous-error :wk "Previous compilation error"))
 
