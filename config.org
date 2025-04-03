@@ -31,6 +31,8 @@
 - [[#magit][Magit]]
 - [[#ido][Ido]]
 - [[#multiple-cursors][multiple-cursors]]
+- [[#code-completion][Code completion]]
+  - [[#company][company]]
 
 * Important initial packages
 These are packages that are essential
@@ -369,4 +371,14 @@ For some nice completion in minibuffers
 #+begin_src emacs-lisp
   (use-package multiple-cursors
     :ensure t)
+#+end_src
+
+* Code completion
+** company
+#+begin_src emacs-lisp
+    (use-package company
+      :ensure t
+      :diminish)
+    (add-hook 'after-init-hook 'global-company-mode)
+
 #+end_src
