@@ -119,7 +119,8 @@ Very important, 'vim .gt. emacs'
     (pj/leader-keys
       "f" '(:ignore t :wk "file")
       "ff" '(find-file :wk "Find file")
-      "fc" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Open config.org"))
+      "fc" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Open config.org")
+      "fn" '(dired-create-empty-file :wk "New file"))
 
     (pj/leader-keys
       "e" '(:ignore t :wk "evaluate")
