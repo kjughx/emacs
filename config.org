@@ -34,6 +34,7 @@
 - [[#multiple-cursors][multiple-cursors]]
 - [[#code-completion][Code completion]]
   - [[#company][company]]
+- [[#auto-save][Auto save]]
 
 * Important initial packages
 These are packages that are essential
@@ -399,4 +400,8 @@ For some nice completion in minibuffers
     :ensure t
     :diminish)
   (add-hook 'after-init-hook 'global-company-mode)
+#+end_src
+* Auto save
+#+begin_src emacs-lisp
+  (setq backup-directory-alist '(("." . "~/.cache/emacs")))
 #+end_src
