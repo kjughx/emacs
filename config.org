@@ -13,6 +13,7 @@
   - [[#move-text][move-text]]
   - [[#keep-selection-on-indent][Keep selection on indent]]
   - [[#c-u][C-u]]
+- [[#miscellaneous][Miscellaneous]]
 - [[#fonts][Fonts]]
   - [[#zooming-inout][Zooming In/Out]]
 - [[#ui-tweaks][UI Tweaks]]
@@ -187,6 +188,10 @@ For some reason evil can't handle this one
 
 #+begin_src emacs-lisp
   (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+#+end_src
+* Miscellaneous
+#+begin_src emacs-lisp
+  (evil-define-key 'normal 'global (kbd "M-s") 'shell-command)
 #+end_src
 * Fonts
 What fonts to use, very important
