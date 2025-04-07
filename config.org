@@ -36,6 +36,7 @@
 - [[#code-completion][Code completion]]
   - [[#company][company]]
 - [[#auto-save][Auto save]]
+- [[#tabs-vs-space][Tabs vs Space]]
 
 * Important initial packages
 These are packages that are essential
@@ -396,4 +397,9 @@ Duh
 * Auto save
 #+begin_src emacs-lisp
   (setq backup-directory-alist '(("." . "~/.cache/emacs")))
+#+end_src
+* Tabs vs Space
+#+begin_src emacs-lisp
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
 #+end_src
