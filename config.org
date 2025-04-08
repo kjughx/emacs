@@ -37,6 +37,7 @@
 - [[#auto-save][Auto save]]
 - [[#tabs-vs-space][Tabs vs Space]]
 - [[#comment][Comment]]
+- [[#lsp][LSP]]
 
 * Important initial packages
 These are packages that are essential
@@ -411,4 +412,17 @@ Duh
   :config
   (evil-commentary-mode))
 #+end_src
+* LSP
+#+begin_src emacs-lisp
+  (setq eldoc-echo-area-use-multiline-p nil)
+  (setq eldoc-echo-area-prefer-doc-buffer t)
+  (evil-define-key 'normal 'global (kbd "S-k") 'eldoc)
+  (diminish 'eglot--managed-mode)
+  (setq eglot-inlay-hints-mode nil)
+  (diminish 'eldoc-mode)
+  (diminish 'global-eldoc-mode)
+  (diminish 'flymake-mode)
+
+  (add-hook 'rust-mode #'eglot-ensure)
+  (add-hook 'c-mode #'eglot-ensure)
 #+end_src
