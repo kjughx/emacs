@@ -362,14 +362,19 @@ Duh
 
 * emacs completion
 #+begin_src emacs-lisp
-  (use-package vertico
-    :ensure t
-    :config (vertico-mode))
-    ;; Enable rich annotations using the Marginalia package
-    (use-package marginalia
+    (use-package vertico
       :ensure t
-      :config
-      (marginalia-mode))
+      :config (vertico-mode))
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless))
+    (completion-category-defaults nil))
+
+      (use-package marginalia
+        :ensure t
+        :config
+        (marginalia-mode))
 #+end_src
 * multiple-cursors
 #+begin_src emacs-lisp
