@@ -397,4 +397,9 @@ Duh
 #+begin_src emacs-lisp
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
+  (use-package dtrt-indent
+    :ensure t
+    :config
+    (setq dtrt-indent-global-mode 1))
+#+end_src
 #+end_src
