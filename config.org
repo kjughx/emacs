@@ -355,13 +355,12 @@ Duh
 #+end_src
 
 #+begin_src emacs-lisp
-    (use-package diff-hl
-  :ensure t
-  :diminish
-:config 
-(global-diff-hl-mode))
+      (use-package diff-hl
+    :ensure t
+    :diminish
+  :config 
+  (global-diff-hl-mode))
 #+end_src
-
 * emacs completion
 #+begin_src emacs-lisp
     (use-package vertico
