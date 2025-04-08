@@ -30,7 +30,6 @@
 - [[#whitespace][Whitespace]]
 - [[#git][git]]
   - [[#magit][magit]]
-  - [[#git-gutter][git-gutter]]
 - [[#emacs-completion][emacs completion]]
 - [[#multiple-cursors][multiple-cursors]]
 - [[#code-completion][Code completion]]
@@ -352,24 +351,15 @@ Duh
   :diminish)
   (diminish 'auto-revert-mode)
 #+end_src
-** git-gutter
-#+begin_src emacs-lisp
-  (use-package git-gutter
-    :ensure t
-    :diminish
-    :hook ((prog-mode . git-gutter-mode))
-    :init
-      (setq git-gutter:update-interval 0.5)
-    :config
-      (set-face-foreground 'git-gutter:modified "orange")
-      (set-face-foreground 'git-gutter:added "green")
-      (set-face-foreground 'git-gutter:deleted "red"))
 
-  (custom-set-variables
-   '(git-gutter:modified-sign "~")
-   '(git-gutter:added-sign "+")
-   '(git-gutter:deleted-sign "-"))
+#+begin_src emacs-lisp
+    (use-package diff-hl
+  :ensure t
+  :diminish
+:config 
+(global-diff-hl-mode))
 #+end_src
+
 * emacs completion
 #+begin_src emacs-lisp
   (use-package vertico
