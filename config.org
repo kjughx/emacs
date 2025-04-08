@@ -36,6 +36,7 @@
   - [[#company][company]]
 - [[#auto-save][Auto save]]
 - [[#tabs-vs-space][Tabs vs Space]]
+- [[#comment][Comment]]
 
 * Important initial packages
 These are packages that are essential
@@ -148,7 +149,7 @@ Very important, 'vim .gt. emacs'
     (pj/leader-keys
       "q"  '(evil-window-delete :wk "Quit window")
       "w"  '(save-buffer :wk "Save buffer")
-      "/"  '(comment-line :wk "Comment line/region"))
+      "/"  '(evil-commentary-line :wk "Comment line/region"))
 
     (pj/leader-keys
       "m" '(:ignore t :wk "multiple-cursors")
@@ -401,5 +402,13 @@ Duh
     :ensure t
     :config
     (setq dtrt-indent-global-mode 1))
+#+end_src
+* Comment
+#+begin_src emacs-lisp
+  (use-package evil-commentary
+    :diminish
+  :ensure t
+  :config
+  (evil-commentary-mode))
 #+end_src
 #+end_src
