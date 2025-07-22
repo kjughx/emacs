@@ -14,8 +14,7 @@
   - [[#keep-selection-on-indent][Keep selection on indent]]
   - [[#c-u][C-u]]
 - [[#miscellaneous][Miscellaneous]]
-- [[#fonts][Fonts]]
-  - [[#zooming-inout][Zooming In/Out]]
+  - [[#fonts][Fonts]]
 - [[#ui-tweaks][UI Tweaks]]
 - [[#org-mode][Org mode]]
   - [[#enable-table-of-contents][Enable Table of Contents]]
@@ -62,23 +61,32 @@ These are packages that are essential
 Very important, 'vim .gt. emacs'
 
 #+begin_src emacs-lisp
-    (defvar evil-want-keybinding nil)
-    (defvar evil-want-C-u-scroll t)
-    (defvar evil-want-integration t)
+      (defvar evil-want-keybinding nil)
+      (defvar evil-want-C-u-scroll t)
+      (defvar evil-want-integration t)
 
-    (use-package evil
-      :init
-      (setq evil-vsplit-window-right t)
-      (setq evil-split-window-below t)
+      (use-package evil
+        :ensure t
+        :diminish
+        :init
+        (setq evil-vsplit-window-right t)
+        (setq evil-split-window-below t)
+        :config
+        (evil-set-undo-system 'undo-redo)
+        (evil-mode))
+  ;; So that e.g. foo_bar_baz is considered one word, like in vim
+  (with-eval-after-load 'evil
+  (defalias #'forward-evil-word #'forward-evil-symbol))
+
+    (use-package evil-collection
+      :ensure t
+      :diminish
+      :after evil
       :config
-      (evil-set-undo-system 'undo-redo)
-      (evil-mode))
-
-  (use-package evil-collection
-    :ensure t
-    :after evil
-    :config
-    (evil-collection-init))
+      (evil-collection-init))
+    (with-eval-after-load 'evil-collection
+      (setq evil-collection-mode-list
+        (remove 'vterm evil-collection-mode-list)))
 #+end_src
 * Keybindings
 ** escape=keyboard-escape-quit
@@ -103,6 +111,7 @@ Very important, 'vim .gt. emacs'
       "bk" '(kill-current-buffer :wk "Kill buffer")
       "bn" '(next-buffer :wk "Buffer next")
       "bp" '(previous-buffer :wk "Buffer previous")
+      "bq" '(bury-buffer :wk "Buffer bury")
       "br" '(revert-buffer :wk "Buffer reload"))
 
     (pj/leader-keys
@@ -113,7 +122,8 @@ Very important, 'vim .gt. emacs'
 
     (pj/leader-keys
       "d" '(:ignore t :wk "dired")
-      "dd" '(dired :wk "Open dired"))
+      "dd" '(dired :wk "Open dired")
+      "dD" '((lambda () (interactive) (dired "~")) :wk "Open dired in <HOME>"))
 
     (pj/leader-keys
       "g" '(:ignore: t :wk "magit")
@@ -128,7 +138,6 @@ Very important, 'vim .gt. emacs'
     (pj/leader-keys
       "e" '(:ignore t :wk "evaluate")
       "eb" '(eval-buffer :wk "Evaluate buffer")
-      "ed" '(eval-defun :wk "Evaluate defun")
       "ee" '(eval-expression :wk "Evaluate expression")
       "er" '(eval-region :wk "Evaluate region"))
 
@@ -167,8 +176,8 @@ Move lines up and down with <C-j> and <C-k>
   (use-package move-text
     :ensure t
     :config
-    (evil-define-key 'normal 'global (kbd "C-j") #'move-text-line-down)
-    (evil-define-key 'normal 'global (kbd "C-k") #'move-text-line-up))
+    (evil-define-key 'normal 'global (kbd "C-k") #'move-text-up)
+    (evil-define-key 'normal 'global (kbd "C-j") #'move-text-down))
 #+end_src
 ** Keep selection on indent
 If text is selected when '<' or '>', keep the selection
@@ -187,26 +196,22 @@ If text is selected when '<' or '>', keep the selection
 #+end_src
 ** C-u
 For some reason evil can't handle this one
-
 #+begin_src emacs-lisp
   (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
 #+end_src
 * Miscellaneous
-#+begin_src emacs-lisp
-  (evil-define-key 'normal 'global (kbd "M-s") 'shell-command)
-#+end_src
-* Fonts
+** Fonts
 What fonts to use, very important
 
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
-    :font "FiraCode Nerd Font"
-    :height 180)
+    :font "Fira Code"
+    :height 160)
 
   ;; Uncomment the following line if line spacing needs adjusting.
   (setq-default line-spacing 0.12)
 #+end_src
-** Zooming In/Out
+*** Zooming In/Out
 You can use the bindings CTRL plus =/- for zooming in/out.
 You can also use CTRL plus the mouse wheel for zooming in/out.
 
@@ -278,13 +283,14 @@ I think this has to do with electric-indent-mode, which is turned on by default 
 #+end_src
 * rainbow mode
 Display the actual color as a background for any hex color value (ex. #abcdef).
-The code block below enables rainbow-mode in all programming modes (prog-mode) as well as org-mode, which is why rainbow works in this document.  
+The code block below enables rainbow-mode in all programming modes (prog-mode) as well as org-mode,
+ which is why rainbow works in this document.
 
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :ensure t
     :diminish
-    :hook 
+    :hook
     ((org-mode prog-mode) . rainbow-mode))
 #+end_src
 * which-key
@@ -296,29 +302,30 @@ The code block below enables rainbow-mode in all programming modes (prog-mode) a
     (setq which-key-idle-delay 0.2)
     :config
     (setq  which-key-side-window-location 'bottom
-  	  which-key-sort-order #'which-key-key-order-alpha
-  	  which-key-add-column-padding 1
-  	  which-key-sort-uppercase-first nil
-  	  which-key-max-display-columns nil
-  	  which-key-min-display-lines 10
-  	  which-key-side-window-slot +10
-  	  which-key-side-window-max-height 0.40
-  	  which-key-max-description-length 25
-  	  which-key-allow-imprecise-window-fit t)
+        which-key-sort-order #'which-key-key-order-alpha
+        which-key-add-column-padding 1
+        which-key-sort-uppercase-first nil
+        which-key-max-display-columns nil
+        which-key-min-display-lines 10
+        which-key-side-window-slot +10
+        which-key-side-window-max-height 0.40
+        which-key-max-description-length 25
+        which-key-allow-imprecise-window-fit t)
       (which-key-mode 1))
 #+end_src
 * Shells
 ** Vterm
-Vterm is a terminal emulator within Emacs. 
+Vterm is a terminal emulator within Emacs.
 The 'shell-file-name' setting sets the shell to be used in M-x shell, M-x term, M-x ansi-term and M-x vterm.
 By default, the shell is set to 'fish' but could change it to 'bash' or 'zsh' if you prefer.
 
 #+begin_src emacs-lisp
+  (setq shell-file-name "/usr/bin/fish")
+
   (use-package vterm
     :ensure t
     :config
-    (setq shell-file-name "/bin/fish"
-          vterm-max-scrollback 5000))
+    (setq vterm-max-scrollback 5000))
   (use-package multi-vterm
     :ensure t)
 #+end_src
@@ -340,8 +347,7 @@ So we can see that damn whitespace
     :diminish
     :hook ((org-mode prog-mode) . whitespace-mode)
     :config
-    (setq whitespace-style '(face spaces space-mark tab-mark tabs))
-    (setq whitespace-space-regexp "\\(\x20\\)"))
+    (setq whitespace-style '(face tabs spaces trailing space-before-tab indentation space-after-tab space-mark tab-mark missing-newline-at-eof)))
 #+end_src
 * git
 ** magit
@@ -355,11 +361,15 @@ Duh
 #+end_src
 
 #+begin_src emacs-lisp
-      (use-package diff-hl
-    :ensure t
-    :diminish
-  :config 
-  (global-diff-hl-mode))
+  (use-package diff-hl
+      :ensure t
+      :diminish
+    :config
+    (global-diff-hl-mode)
+    (custom-set-faces
+      '(diff-hl-change ((t (:background "#333355" ))))
+      '(diff-hl-delete ((t (:background "#553333" ))))
+      '(diff-hl-insert ((t (:background "#335533" ))))))
 #+end_src
 * emacs completion
 #+begin_src emacs-lisp
@@ -369,13 +379,13 @@ Duh
   (use-package orderless
     :ensure t
     :custom
-    (completion-styles '(orderless))
+    (completion-styles '(flex))
     (completion-category-defaults nil))
 
-      (use-package marginalia
-        :ensure t
-        :config
-        (marginalia-mode))
+  (use-package marginalia
+    :ensure t
+    :config
+    (marginalia-mode))
 #+end_src
 * multiple-cursors
 #+begin_src emacs-lisp
@@ -417,7 +427,7 @@ Duh
   (setq eldoc-echo-area-prefer-doc-buffer t)
   (evil-define-key 'normal 'global (kbd "S-k") 'eldoc)
   (diminish 'eglot--managed-mode)
-  (setq eglot-inlay-hints-mode nil)
+  (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
   (diminish 'eldoc-mode)
   (diminish 'global-eldoc-mode)
   (diminish 'flymake-mode)
