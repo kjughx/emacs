@@ -15,6 +15,7 @@
   - [[#c-u][C-u]]
 - [[#miscellaneous][Miscellaneous]]
   - [[#fonts][Fonts]]
+  - [[#zooming-inout][Zooming In/Out]]
 - [[#ui-tweaks][UI Tweaks]]
 - [[#org-mode][Org mode]]
   - [[#enable-table-of-contents][Enable Table of Contents]]
@@ -211,7 +212,7 @@ What fonts to use, very important
   ;; Uncomment the following line if line spacing needs adjusting.
   (setq-default line-spacing 0.12)
 #+end_src
-*** Zooming In/Out
+** Zooming In/Out
 You can use the bindings CTRL plus =/- for zooming in/out.
 You can also use CTRL plus the mouse wheel for zooming in/out.
 
