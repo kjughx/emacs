@@ -442,3 +442,48 @@ Duh
   (add-hook 'rust-mode #'eglot-ensure)
   (add-hook 'c-mode #'eglot-ensure)
 #+end_src
+** ShellGPT
+#+begin_src emacs-lisp
+  (defun datetime ()
+    (interactive)
+    (insert (format-time-string "%Y-%m-%d %H:%M:%S")))
+  (defun date ()
+    (interactive)
+    (insert (format-time-string "%Y-%m-%d %H:%M:%S")))
+
+  (defun sgpt-repl ()
+    (interactive)
+    (let ((name (generate-new-buffer-name "sgpt-repl")))
+      (if (string= name "sgpt-repl")
+          (progn
+            (vterm "sgpt-repl")
+            (with-current-buffer name
+              (vterm-send-string (concat "sgpt --no-md --no-functions --repl repl"))
+              (vterm-send-return))
+            )
+        (switch-to-buffer "sgpt-repl"))))
+
+  (defun sgpt-code (prompt)
+    (interactive "sPrompt: ")
+    (with-help-window "*ShellGPT*"
+      (let ((cmd (concat "sgpt --code --md --no-functions " "\"" prompt "\"")))
+        (keymap-local-set "q" (lambda () (interactive) (bury-buffer)))
+        (insert (shell-command-to-string cmd)))))
+
+  (defun sgpt-code-at-point (prompt)
+    (interactive "sPrompt: ")
+      (let ((cmd (concat "sgpt --code --md --no-functions " "\"" prompt "\"")))
+        (keymap-local-set "q" (lambda () (interactive) (bury-buffer)))
+        (insert "⌛")
+        (redisplay)
+        (let ((output (shell-command-to-string cmd)))
+          (delete-backward-char 1)
+        (insert output))))
+
+  (defun sgpt-shell (prompt)
+    (interactive "sPrompt ")
+    (with-help-window "*ShellGPT*"
+      (let ((cmd (concat "sgpt --shell --md --no-functions " "\"" prompt "\"")))
+        (keymap-local-set "q" (lambda () (interactive) (bury-buffer)))
+        (async-shell-command cmd (current-buffer)))))
+#+end_src
