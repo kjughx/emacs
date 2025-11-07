@@ -16,6 +16,7 @@
 - [[#miscellaneous][Miscellaneous]]
   - [[#fonts][Fonts]]
   - [[#zooming-inout][Zooming In/Out]]
+  - [[#grep][grep]]
 - [[#ui-tweaks][UI Tweaks]]
 - [[#org-mode][Org mode]]
   - [[#enable-table-of-contents][Enable Table of Contents]]
@@ -222,6 +223,11 @@ You can also use CTRL plus the mouse wheel for zooming in/out.
   (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
   (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 #+end_src
+** grep
+#+begin_src emacs-lisp
+  (setq-default grep-command "rg --vimgrep")
+#+end_src
+** colors
 * UI Tweaks
 #+begin_src emacs-lisp
   (setq inhibit-startup-screen t)      ;; no splash screen
