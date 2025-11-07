@@ -434,7 +434,7 @@ Duh
   (setq eldoc-echo-area-prefer-doc-buffer t)
   (evil-define-key 'normal 'global (kbd "S-k") 'eldoc)
   (diminish 'eglot--managed-mode)
-  (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
+  (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode t)))
   (diminish 'eldoc-mode)
   (diminish 'global-eldoc-mode)
   (diminish 'flymake-mode)
