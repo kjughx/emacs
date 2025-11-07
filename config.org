@@ -487,3 +487,13 @@ Duh
         (keymap-local-set "q" (lambda () (interactive) (bury-buffer)))
         (async-shell-command cmd (current-buffer)))))
 #+end_src
+* Notetaking / TODOs
+#+begin_src emacs-lisp
+  (defun todos ()
+    (interactive)
+    (org-open-file "~/.todos.org"))
+
+  (defun notes ()
+    (interactive)
+    (org-open-file "~/.notes.org"))
+#+end_src
