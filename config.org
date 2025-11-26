@@ -231,17 +231,19 @@ You can also use CTRL plus the mouse wheel for zooming in/out.
 ** colors
 * UI Tweaks
 #+begin_src emacs-lisp
-  (setq inhibit-startup-screen t)      ;; no splash screen
-  (menu-bar-mode 0)                    ;; ew menu bar
-  (tool-bar-mode 0)                    ;; ew tool bar
-  (scroll-bar-mode 0)                  ;; ew scroll bar
-  (column-number-mode 1)               ;; so we can see the column
-  (global-display-line-numbers-mode 1) ;; line numbers are useful
-  (show-paren-mode 1)                  ;; on by default but still
-  (setq show-trailing-whitespace t)
-  (fset 'yes-or-no-p 'y-or-n-p)
-  (display-time)
-  (global-hl-line-mode 1)
+    (setq inhibit-startup-screen t)      ;; no splash screen
+    (menu-bar-mode 0)                    ;; ew menu bar
+    (tool-bar-mode 0)                    ;; ew tool bar
+    (scroll-bar-mode 0)                  ;; ew scroll bar
+    (column-number-mode 1)               ;; so we can see the column
+    (global-display-line-numbers-mode 1) ;; line numbers are useful
+    (show-paren-mode 1)                  ;; on by default but still
+    (setq show-trailing-whitespace t)
+    (fset 'yes-or-no-p 'y-or-n-p)
+    (display-time)
+    (global-hl-line-mode 1)
+    (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter) ;; For ANSI colors
+  (add-hook 'comint-output-filter-functions 'ansi-color-process-output)
 #+end_src
 * Org mode
 ** Enable Table of Contents
