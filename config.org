@@ -39,6 +39,7 @@
 - [[#tabs-vs-space][Tabs vs Space]]
 - [[#comment][Comment]]
 - [[#lsp][LSP]]
+- [[#movement][Movement]]
 
 * Important initial packages
 These are packages that are essential
@@ -441,6 +442,13 @@ Duh
 
   (add-hook 'rust-mode #'eglot-ensure)
   (add-hook 'c-mode #'eglot-ensure)
+#+end_src
+* Movement
+#+begin_src emacs-lisp
+  (define-key global-map (kbd "M-l") 'evil-window-right)
+  (define-key global-map (kbd "M-h") 'evil-window-left)
+  (define-key global-map (kbd "M-k") 'evil-window-up)
+  (define-key global-map (kbd "M-j") 'evil-window-down)
 #+end_src
 ** ShellGPT
 #+begin_src emacs-lisp
