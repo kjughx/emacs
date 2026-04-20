@@ -1,3 +1,11 @@
 config.el
 *~
 *#
+auto-save-list
+eln-cache
+elpa
+melpa
+straight/*
+!straight/versions/
+straight/versions/*
+!straight/versions/default.el

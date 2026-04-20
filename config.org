@@ -3,7 +3,7 @@
 #+description: PJ's personal Emacs config.
 #+startup: showeverything
 #+options: toc:2
-* TABLE OF CONTENTS                                                    :toc:
+* TABLE OF CONTENTS                                                     :toc:
 - [[#important-initial-packages][Important initial packages]]
   - [[#use-package-package-manager][use-package package manager]]
   - [[#evil-mode][Evil mode]]
@@ -15,7 +15,7 @@
   - [[#c-u][C-u]]
 - [[#miscellaneous][Miscellaneous]]
   - [[#fonts][Fonts]]
-- [[#ui-tweaks][UI Tweaks]]
+  - [[#ui-tweaks][UI Tweaks]]
 - [[#org-mode][Org mode]]
   - [[#enable-table-of-contents][Enable Table of Contents]]
   - [[#enable-org-bullets][Enable Org Bullets]]
@@ -47,20 +47,29 @@ These are packages that are essential
 ** use-package package manager
 
 #+begin_src emacs-lisp
-  (require 'package)
-  (setq package-archives
-        '(("melpa" . "https://melpa.org/packages/")
-          ("gnu" . "https://elpa.gnu.org/packages/")
-          ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-  (package-initialize)
+  (setq package-enable-at-startup nil)
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+          (expand-file-name
+          "straight/repos/straight.el/bootstrap.el"
+          (or (bound-and-true-p straight-base-dir)
+              user-emacs-directory)))
+          (bootstrap-version 7))
+      (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+              "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+              'silent 'inhibit-cookies)
+          (goto-char (point-max))
+          (eval-print-last-sexp)))
+      (load bootstrap-file nil 'nomessage))
 
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
+  (straight-use-package 'use-package)
 
-  (require 'use-package)
-  (use-package diminish :ensure t)
+  (use-package diminish :straight t)
+  (add-hook 'straight-use-package-mode-hook (lambda () (if (active-mode-p 'straight-use-package-mode) (straight-freeze-versions))))
 #+end_src
+
 ** Evil mode
 Very important, 'vim .gt. emacs'
 
@@ -70,7 +79,7 @@ Very important, 'vim .gt. emacs'
   (defvar evil-want-integration t)
 
   (use-package evil
-    :ensure t
+    :straight t
     :diminish
     :init
     (setq evil-vsplit-window-right t)
@@ -80,7 +89,7 @@ Very important, 'vim .gt. emacs'
     (evil-mode))
 
   (use-package evil-collection
-    :ensure t
+    :straight t
     :diminish
     :after evil
     :config
@@ -99,7 +108,7 @@ Move lines up and down with <C-j> and <C-k>
 
 #+begin_src emacs-lisp
   (use-package move-text
-    :ensure t
+    :straight t
     :config
     (evil-define-key 'normal 'global (kbd "C-k") #'move-text-up)
     (evil-define-key 'normal 'global (kbd "C-j") #'move-text-down))
@@ -111,7 +120,7 @@ Move lines up and down with <C-j> and <C-k>
 ** general
 #+begin_src emacs-lisp
   (use-package general
-    :ensure t
+    :straight t
     :config
     (general-evil-setup)
     (general-create-definer pj/leader-keys
@@ -209,10 +218,11 @@ For some reason evil can't handle this one
 What fonts to use, very important
 
 #+begin_src emacs-lisp
-  (set-frame-font "Iosevka Medium 13")
+  (set-frame-font "Fira Code 13")
 
   (setq-default line-spacing 0.12)
 #+end_src
+
 *** Zooming In/Out
 You can use the bindings CTRL plus =/- for zooming in/out.
 You can also use CTRL plus the mouse wheel for zooming in/out.
@@ -227,7 +237,7 @@ You can also use CTRL plus the mouse wheel for zooming in/out.
 #+begin_src emacs-lisp
   (setq-default grep-command "rg --vimgrep")
 #+end_src
-* UI Tweaks
+** UI Tweaks
 #+begin_src emacs-lisp
   (setq inhibit-startup-screen t)      ;; no splash screen
   (menu-bar-mode 0)                    ;; ew menu bar
@@ -248,7 +258,7 @@ You can also use CTRL plus the mouse wheel for zooming in/out.
 
 #+begin_src emacs-lisp
   (use-package toc-org
-    :ensure t
+    :straight t
     :commands toc-org-enable
     :init (add-hook 'org-mode-hook 'toc-org-enable))
 #+end_src
@@ -257,7 +267,7 @@ Org-bullets gives us attractive bullets rather than asterisks.
 
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook 'org-indent-mode)
-  (use-package org-bullets :ensure t)
+  (use-package org-bullets :straight t)
   (add-hook 'org-mode-hook (lambda ()
                              (org-bullets-mode 1)
                              (diminish 'org-indent-mode)))
@@ -289,7 +299,7 @@ I think this has to do with electric-indent-mode, which is turned on by default 
 * sudo-edit
 #+begin_src emacs-lisp
   (use-package sudo-edit
-    :ensure t
+    :straight t
     :config
     (pj/leader-keys
       "fu" '(sudo-edit-find-file :wk "Sudo find file")
@@ -302,7 +312,7 @@ which is why rainbow works in this document.
 
 #+begin_src emacs-lisp
   (use-package rainbow-mode
-    :ensure t
+    :straight t
     :diminish
     :hook
     ((org-mode prog-mode) . rainbow-mode))
@@ -310,7 +320,7 @@ which is why rainbow works in this document.
 * which-key
 #+begin_src emacs-lisp
   (use-package which-key
-    :ensure t
+    :straight t
     :diminish
     :init
     (setq which-key-idle-delay 0.2)
@@ -337,18 +347,18 @@ By default, the shell is set to 'fish' but could change it to 'bash' or 'zsh' if
   (setq shell-file-name "/usr/bin/fish")
 
   (use-package vterm
-    :ensure t
+    :straight t
     :config
     (setq vterm-max-scrollback 5000))
   (use-package multi-vterm
-    :ensure t)
+    :straight t)
 #+end_src
 * Theme
 Less is more
 
 #+begin_src emacs-lisp
   (use-package gruber-darker-theme
-    :ensure t)
+    :straight t)
   (custom-set-faces
     '(org-block ((t (:background "#181818" :foreground "#e4e4ef")))))
 #+end_src
@@ -357,7 +367,7 @@ So we can see that damn whitespace
 
 #+begin_src emacs-lisp
   (use-package whitespace
-    :ensure t
+    :straight t
     :diminish
     :hook ((org-mode prog-mode) . whitespace-mode)
     :config
@@ -369,16 +379,15 @@ Duh
 
 #+begin_src emacs-lisp
   (use-package magit
-    :ensure t
+    :straight t
     :diminish)
-  (diminish 'auto-revert-mode)
 
   (setq magit-diff-refine-hunk (quote all))
 #+end_src
 
 #+begin_src emacs-lisp
   (use-package diff-hl
-    :ensure t
+    :straight t
     :diminish
     :config
     (global-diff-hl-mode)
@@ -391,34 +400,34 @@ Duh
 * emacs completion
 #+begin_src emacs-lisp
   (use-package vertico
-    :ensure t
+    :straight t
     :config (vertico-mode))
   (use-package orderless
-    :ensure t
+    :straight t
     :custom
     (completion-styles '(orderless basic)))
 
   (use-package orderless
-    :ensure t
+    :straight t
     :custom
     (completion-styles '(flex))
     (completion-category-defaults nil))
 
   (use-package marginalia
-    :ensure t
+    :straight t
     :config
     (marginalia-mode))
 #+end_src
 * multiple-cursors
 #+begin_src emacs-lisp
   (use-package multiple-cursors
-    :ensure t)
+    :straight t)
 #+end_src
 * Code completion
 ** company
 #+begin_src emacs-lisp
   (use-package company
-    :ensure t
+    :straight t
     :diminish)
   (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
@@ -431,7 +440,7 @@ Duh
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
   (use-package dtrt-indent
-    :ensure t
+    :straight t
     :config
     (setq dtrt-indent-global-mode 1))
   (add-hook 'dts-mode-hook (lambda () (setq indent-tabs-mode t) (setq tab-width 4)))
@@ -440,7 +449,7 @@ Duh
 #+begin_src emacs-lisp
   (use-package evil-commentary
     :diminish
-  :ensure t
+  :straight t
   :config
   (evil-commentary-mode))
 #+end_src
@@ -453,7 +462,6 @@ Duh
   ;; (setq eldoc-echo-area-use-multiline-p nil)
   ;; (setq eldoc-echo-area-prefer-doc-buffer t)
   ;; (evil-define-key 'normal 'global (kbd "S-k") 'eldoc)
-  ;; (diminish 'eglot--managed-mode)
   ;; (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode t)))
   ;; (diminish 'eldoc-mode)
   ;; (diminish 'global-eldoc-mode)
@@ -481,5 +489,4 @@ Not working
      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
        (c "https://github.com/tree-sitter/tree-sitter-c" "v0.20.0")
        ))
-#+end_src
 #+end_src
