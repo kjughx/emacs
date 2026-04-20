@@ -282,6 +282,12 @@ I think this has to do with electric-indent-mode, which is turned on by default 
         (insert document)))
     (message nil))
 #+end_src
+
+*** Colors
+#+begin_src emacs-lisp
+  (set-face-attribute 'org-meta-line nil :height 0.8 :slant 'normal :foreground "#555555")
+  (custom-set-faces '(org-block ((t (:background "#181818" :foreground "#e4e4ef")))))
+#+end_src
 * sudo-edit
 #+begin_src emacs-lisp
   (use-package sudo-edit
